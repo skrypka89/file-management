@@ -9,8 +9,11 @@
   "author": "Oleksandr Skrypka",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "http-status": "^1.4.2",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
     "mysql": "^2.18.1",
     "objection": "^2.2.2",
