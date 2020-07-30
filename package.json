@@ -9,6 +9,11 @@
   "author": "Oleksandr Skrypka",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "knex": "^0.21.2",
+    "mysql": "^2.18.1",
+    "objection": "^2.2.2",
+    "objection-db-errors": "^1.1.2"
   }
 }
