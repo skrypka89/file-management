@@ -15,6 +15,7 @@
     "http-status": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "objection": "^2.2.2",
     "objection-db-errors": "^1.1.2"
