@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "author": "Oleksandr Skrypka",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^15.1.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -16,8 +18,12 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "objection": "^2.2.2",
     "objection-db-errors": "^1.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
