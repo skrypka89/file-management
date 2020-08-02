@@ -23,7 +23,7 @@ const UserService = class {
     const token = jwt.sign({
       userId: dto.userId,
       iat: Math.floor(Date.now() / 1000)
-    }, 'secret');
+    }, process.env.JWT_SECRET);
     const tokens = [];
     tokens.push(token);
     dto.tokens = JSON.stringify(tokens);
@@ -47,7 +47,7 @@ const UserService = class {
     const token = jwt.sign({
       userId: dto.userId,
       iat: Math.floor(Date.now() / 1000)
-    }, 'secret');
+    }, process.env.JWT_SECRET);
     let tokens = JSON.parse(user.tokens);
     tokens.push(token);
     tokens = JSON.stringify(tokens);

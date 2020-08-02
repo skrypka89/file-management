@@ -11,7 +11,7 @@ const authenticate = () => {
     try {
       const token = req.header('Authorization').replace('Bearer ', '');
       req.token = token;
-      const decoded = jwt.verify(token, 'secret');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await userService.read(decoded.userId, token);
       next();
     } catch (e) {
