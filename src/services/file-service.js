@@ -2,7 +2,7 @@
 const File = require('../models/file');
 const ApiError = require('../common/api-error');
 
-class FileService {
+const FileService = class {
   get model() {
     return File;
   }
@@ -44,6 +44,6 @@ class FileService {
   async delete(id) {
     return this.model.query().deleteById(id);
   }
-}
+};
 
 module.exports = FileService;

@@ -5,17 +5,17 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const ApiError = require('../common/api-error');
 
-class UserService {
+const UserService = class {
   get model() {
     return User;
   }
 
   async create(dto) {
-    const foundUser = await this.model.query().findOne({
+    const user = await this.model.query().findOne({
       userId: dto.userId
     });
 
-    if (foundUser) throw ApiError.conflict('Используйте другой id');
+    if (user) throw ApiError.conflict('Используйте другой id');
 
     dto.password = await bcrypt
       .hash(dto.password, 10)
@@ -31,27 +31,52 @@ class UserService {
     return token;
   }
 
-  async signin(userId, password) {
-    const foundUser = await this.model.query().findOne({ userId });
+  async signin(dto) {
+    const user = await this.model.query().findOne({
+      userId: dto.userId
+    });
 
-    if (!foundUser) throw ApiError.badRequest('Неверный ввод id');
+    if (!user) throw ApiError.badRequest('Неверный ввод id');
 
     const comparison = await bcrypt
-      .compare(password, foundUser.password)
+      .compare(dto.password, user.password)
       .catch(() => { throw ApiError.internal(); });
 
     if (!comparison) throw ApiError.unauthorized('Неверный ввод пароля');
 
     const token = jwt.sign({
-      id: foundUser.id,
+      userId: dto.userId,
       iat: Math.floor(Date.now() / 1000)
     }, 'secret');
-    let tokens = JSON.parse(foundUser.tokens);
+    let tokens = JSON.parse(user.tokens);
     tokens.push(token);
     tokens = JSON.stringify(tokens);
-    await this.model.query().patchAndFetchById(foundUser.id, { tokens });
+    await this.model.query().patchAndFetchById(user.id, { tokens });
     return token;
   }
-}
+
+  async read(userId, userToken) {
+    const user = await this.model.query().findOne({ userId });
+
+    if (!user) throw ApiError.badRequest('Пользователь не найден');
+
+    const token = JSON
+      .parse(user.tokens)
+      .find(token => token === userToken);
+
+    if (!token) throw ApiError.unauthorized('Пользователь не авторизован');
+
+    return user;
+  }
+
+  async logout(userId, userToken) {
+    const user = await this.model.query().findOne({ userId });
+    let tokens = JSON
+      .parse(user.tokens)
+      .filter(token => token !== userToken);
+    tokens = JSON.stringify(tokens);
+    await this.model.query().patchAndFetchById(user.id, { tokens });
+  }
+};
 
 module.exports = UserService;

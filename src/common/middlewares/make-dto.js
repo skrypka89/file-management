@@ -1,4 +1,4 @@
-function makeDto() {
+const makeDto = () => {
   return (req, res, next) => {
     const { originalname, mimetype, size, uploadedAt } = req.file;
     req.dto = {
@@ -10,6 +10,6 @@ function makeDto() {
     };
     next();
   };
-}
+};
 
 module.exports = makeDto;

@@ -3,7 +3,7 @@ const db = require('../common/db');
 
 Model.knex(db);
 
-class File extends Model {
+const File = class extends Model {
   static get tableName() {
     return 'files';
   }
@@ -25,6 +25,6 @@ class File extends Model {
       }
     };
   }
-}
+};
 
 module.exports = File;

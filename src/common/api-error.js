@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 
-class ApiError {
+const ApiError = class {
   constructor(message, statusCode, data) {
     this.statusCode = statusCode;
     this.error = httpStatus[statusCode];
@@ -39,6 +39,6 @@ class ApiError {
   static internal() {
     return new ApiError(null, 500);
   }
-}
+};
 
 module.exports = ApiError;

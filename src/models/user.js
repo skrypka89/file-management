@@ -3,7 +3,7 @@ const db = require('../common/db');
 
 Model.knex(db);
 
-class User extends Model {
+const User = class extends Model {
   static get tableName() {
     return 'users';
   }
@@ -23,6 +23,6 @@ class User extends Model {
       }
     };
   }
-}
+};
 
 module.exports = User;
